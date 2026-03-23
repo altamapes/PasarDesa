@@ -1,0 +1,134 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a seller in the marketplace.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Seller's shop or personal name"
+        },
+        "whatsapp": {
+          "type": "string",
+          "description": "WhatsApp number for direct messaging"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "admin"],
+          "description": "User's role in the system"
+        },
+        "latitude": {
+          "type": "number",
+          "description": "Latitude of the seller's location"
+        },
+        "longitude": {
+          "type": "number",
+          "description": "Longitude of the seller's location"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "Account creation time"
+        }
+      },
+      "required": ["uid", "name", "whatsapp", "createdAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Represents a product listed by a seller.",
+      "type": "object",
+      "properties": {
+        "sellerId": {
+          "type": "string",
+          "description": "UID of the seller"
+        },
+        "sellerName": {
+          "type": "string",
+          "description": "Name of the seller"
+        },
+        "sellerWhatsapp": {
+          "type": "string",
+          "description": "WhatsApp number of the seller"
+        },
+        "name": {
+          "type": "string",
+          "description": "Product name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Product description"
+        },
+        "price": {
+          "type": "number",
+          "description": "Product price in IDR"
+        },
+        "category": {
+          "type": "string",
+          "description": "Product category (e.g., sayur, sembako, dll)"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the product image"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of product image URLs"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "Product creation time"
+        }
+      },
+      "required": ["sellerId", "sellerName", "sellerWhatsapp", "name", "description", "price", "category", "imageUrl", "createdAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Represents a user review and rating for a product.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the user who wrote the review"
+        },
+        "userName": {
+          "type": "string",
+          "description": "Name of the user who wrote the review"
+        },
+        "rating": {
+          "type": "number",
+          "description": "Star rating from 1 to 5"
+        },
+        "text": {
+          "type": "string",
+          "description": "Review text"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "Review creation time"
+        }
+      },
+      "required": ["userId", "userName", "rating", "text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Stores seller profiles."
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Stores all products listed by sellers."
+    },
+    "/products/{productId}/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Stores user reviews for a specific product."
+    }
+  }
+}

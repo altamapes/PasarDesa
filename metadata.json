@@ -1,0 +1,5 @@
+{
+  "name": "PasarDesa",
+  "description": "Marketplace desa sederhana seperti Shopee dengan fitur WhatsApp direct message.",
+  "requestFramePermissions": []
+}
